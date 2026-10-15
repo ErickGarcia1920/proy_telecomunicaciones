@@ -1,12 +1,14 @@
 {
   "name": "internet-prepago-ultima-milla",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Prototipo académico de portal prepago con pago simulado",
+  "description": "Portal de Internet prepago de última milla: registro, pago, emisión de credenciales, servidor RADIUS para pfSense, métricas y panel de estado",
   "main": "server.js",
+  "license": "UNLICENSED",
   "scripts": {
     "start": "node server.js",
-    "test": "node --test"
+    "dev": "node --watch server.js",
+    "test": "node --test test/*.test.js"
   },
   "engines": {
     "node": ">=20"

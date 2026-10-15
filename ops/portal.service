@@ -1,0 +1,23 @@
+[Unit]
+Description=Portal de Internet prepago (web + RADIUS)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=portal
+Group=portal
+WorkingDirectory=/opt/portal
+EnvironmentFile=/etc/portal.env
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=3
+# Endurecimiento: el servicio solo puede escribir en su carpeta de datos
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/portal/data
+
+[Install]
+WantedBy=multi-user.target

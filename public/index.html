@@ -1,66 +1,115 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#102b3f">
-    <title>Conecta Rural | Internet prepago</title>
-    <link rel="stylesheet" href="/styles.css">
-    <script src="/app.js" defer></script>
-  </head>
-  <body>
-    <main class="layout">
-      <section class="intro" aria-labelledby="page-title">
-        <p class="eyebrow">PROTOTIPO ACADÉMICO</p>
-        <h1 id="page-title">Conéctate a tu manera.</h1>
-        <p class="intro-copy">Regístrate y elige un paquete de acceso para continuar con la demostración.</p>
-        <div class="network-note">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span>Portal de demostración · pagos simulados</span>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Internet prepago · Conecta Rural</title>
+  <meta name="description" content="Compra tu acceso a Internet por tiempo, sin contratos, y conéctate al instante.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Inicio">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#0f766e"/><path d="M12 28a28 28 0 0 1 40 0M19 35a18 18 0 0 1 26 0M26 42a8 8 0 0 1 12 0" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/><circle cx="32" cy="50" r="4" fill="#fbbf24"/></svg>
+        <span id="brand-name">Conecta Rural</span>
+      </a>
+      <nav aria-label="Principal"><a href="/estado">Estado del servicio</a></nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>Internet donde lo necesitas, sin contratos</h1>
+      <p>Elige un paquete, paga en un minuto y conéctate de inmediato. Solo pagas el tiempo que usas.</p>
+      <div class="badges"><span class="badge">Sin contratos</span><span class="badge">Acceso inmediato</span><span class="badge">Pago seguro</span></div>
+    </section>
+
+    <ol class="steps" id="steps" aria-label="Progreso de la compra">
+      <li data-step="1"><span class="n">1</span> Paquete</li>
+      <li data-step="2"><span class="n">2</span> Tus datos</li>
+      <li data-step="3"><span class="n">3</span> Pago</li>
+      <li data-step="4"><span class="n">4</span> Conexión</li>
+    </ol>
+
+    <noscript><div class="panel"><div class="alert">Para comprar tu paquete necesitas activar JavaScript en el navegador.</div></div></noscript>
+
+    <section class="panel wide" id="step-1" aria-labelledby="h-1">
+      <h2 id="h-1">Elige tu paquete</h2>
+      <p class="lead">Todos incluyen navegación sin límite de datos durante el tiempo contratado.</p>
+      <div class="plans" id="plans" role="group" aria-label="Paquetes disponibles"></div>
+      <div class="actions"><button class="btn btn-primary" id="to-2" disabled>Continuar</button></div>
+    </section>
+
+    <section class="panel" id="step-2" hidden aria-labelledby="h-2">
+      <h2 id="h-2">Tus datos</h2>
+      <p class="lead">Los usamos solo para emitir tu comprobante y atender cualquier consulta.</p>
+      <form id="form-datos" novalidate>
+        <div class="field"><label for="name">Nombre completo</label><input id="name" name="name" autocomplete="name" required maxlength="80"><div class="err" id="err-name" role="alert"></div></div>
+        <div class="field"><label for="email">Correo electrónico</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254"><div class="err" id="err-email" role="alert"></div></div>
+        <div class="field"><label class="check"><input type="checkbox" id="terms"><span>Acepto las condiciones del servicio y entiendo que el tiempo del paquete se descuenta mientras estoy conectado.</span></label><div class="err" id="err-acceptTerms" role="alert"></div></div>
+        <div class="alert" id="alert-2" hidden role="alert"></div>
+        <div class="actions"><button type="button" class="btn btn-ghost" data-back="1">Atrás</button><button class="btn btn-primary" id="submit-2" type="submit">Continuar al pago</button></div>
+      </form>
+    </section>
+
+    <section class="panel" id="step-3" hidden aria-labelledby="h-3">
+      <h2 id="h-3">Pago</h2>
+      <div class="summary" id="order-summary"></div>
+      <div class="notice"><span aria-hidden="true">ℹ️</span><span>Ambiente de pruebas: el pago es simulado y no se realiza ningún cobro. Usa una tarjeta de prueba.</span></div>
+      <details class="test-cards">
+        <summary>Ver tarjetas de prueba</summary>
+        <table><tbody>
+          <tr><td>4242 4242 4242 4242</td><td>Pago aprobado</td></tr>
+          <tr><td>4000 0000 0000 0002</td><td>Tarjeta rechazada</td></tr>
+          <tr><td>4000 0000 0000 9995</td><td>Fondos insuficientes</td></tr>
+        </tbody></table>
+        <p class="lead tight">Usa cualquier fecha futura, cualquier código de 3 dígitos y cualquier nombre.</p>
+      </details>
+      <form id="form-pago" novalidate autocomplete="off">
+        <div class="field"><label for="holder">Nombre en la tarjeta</label><input id="holder" name="holder" autocomplete="off" maxlength="80"><div class="err" id="err-holder" role="alert"></div></div>
+        <div class="field"><label for="number">Número de tarjeta</label><input id="number" name="number" inputmode="numeric" autocomplete="off" maxlength="23" placeholder="0000 0000 0000 0000"><div class="err" id="err-number" role="alert"></div></div>
+        <div class="row">
+          <div class="field"><label for="exp">Vencimiento</label><input id="exp" name="exp" inputmode="numeric" autocomplete="off" maxlength="5" placeholder="MM/AA"><div class="err" id="err-exp" role="alert"></div></div>
+          <div class="field"><label for="cvc">Código de seguridad</label><input id="cvc" name="cvc" inputmode="numeric" autocomplete="off" maxlength="4" placeholder="123"><div class="err" id="err-cvc" role="alert"></div></div>
         </div>
-      </section>
+        <div class="alert" id="alert-3" hidden role="alert"></div>
+        <div class="actions"><button type="button" class="btn btn-ghost" data-back="2">Atrás</button><button class="btn btn-primary" id="submit-3" type="submit">Pagar</button></div>
+      </form>
+    </section>
 
-      <section class="card" aria-labelledby="form-title">
-        <div class="card-heading">
-          <p class="step-label">ACCESO PREPAGO <span>01 / 02</span></p>
-          <h2 id="form-title">Crea tu acceso</h2>
-          <p>Completa tus datos para iniciar.</p>
+    <section class="panel" id="step-4" hidden aria-labelledby="h-4">
+      <div class="success-head">
+        <div class="check-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <h2 id="h-4">¡Pago aprobado!</h2>
+        <p class="lead">Estas son tus credenciales de acceso.</p>
+      </div>
+      <div id="creds-block">
+        <div class="creds" aria-live="polite">
+          <div class="cred"><div><div class="k">Usuario</div><div class="v" id="c-user"></div></div><button class="btn btn-ghost no-print" data-copy="c-user" type="button">Copiar</button></div>
+          <div class="cred"><div><div class="k">Contraseña</div><div class="v" id="c-pass"></div></div><button class="btn btn-ghost no-print" data-copy="c-pass" type="button">Copiar</button></div>
         </div>
+        <div class="notice warn"><span aria-hidden="true">⚠️</span><span>Guárdalas ahora: por seguridad no se vuelven a mostrar.</span></div>
+      </div>
+      <div id="creds-gone" class="notice warn" hidden><span aria-hidden="true">⚠️</span><span>Tus credenciales ya fueron mostradas. Si las perdiste, escribe a <a id="support-link" href="#">soporte</a> indicando tu comprobante.</span></div>
+      <div class="facts" id="facts"></div>
+      <h3>Cómo conectarte</h3>
+      <ol class="how" id="how"></ol>
+      <form id="form-connect" method="post" hidden>
+        <input type="hidden" name="auth_user"><input type="hidden" name="auth_pass"><input type="hidden" name="redirurl"><input type="hidden" name="accept" value="Continue">
+      </form>
+      <div class="actions no-print">
+        <button class="btn btn-ghost" id="print" type="button">Guardar comprobante</button>
+        <button class="btn btn-primary" id="connect" type="button" hidden>Conectarme ahora</button>
+        <button class="btn btn-ghost" id="again" type="button">Comprar otro paquete</button>
+      </div>
+    </section>
+  </main>
 
-        <form id="registration-form">
-          <label for="name">Nombre</label>
-          <input id="name" name="name" autocomplete="name" required minlength="2" maxlength="80" placeholder="Tu nombre">
-
-          <label for="email">Correo electrónico</label>
-          <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="nombre@ejemplo.com">
-
-          <label for="package">Elige un paquete</label>
-          <select id="package" name="packageId" required>
-            <option value="hour">1 hora — Q5 (demo)</option>
-            <option value="day">1 día — Q15 (demo)</option>
-            <option value="week">1 semana — Q50 (demo)</option>
-          </select>
-
-          <label class="terms">
-            <input name="acceptedTerms" type="checkbox" required>
-            <span>Acepto que esta es una simulación académica, sin cobro real ni servicio de Internet.</span>
-          </label>
-
-          <button id="register-button" type="submit">Continuar al pago simulado</button>
-        </form>
-
-        <section id="payment-step" class="payment-step" hidden aria-labelledby="payment-title">
-          <div class="divider"></div>
-          <p class="step-label">ACCESO PREPAGO <span>02 / 02</span></p>
-          <h3 id="payment-title">Confirma la simulación</h3>
-          <p id="package-summary" class="package-summary"></p>
-          <button id="pay-button" type="button" class="secondary-button">Simular pago aprobado</button>
-          <p class="demo-warning">Este botón solo actualiza el estado de la demo. No habilita reglas de pfSense.</p>
-        </section>
-
-        <p id="message" class="message" role="status" aria-live="polite"></p>
-      </section>
-    </main>
-    <footer>Proyecto de telecomunicaciones · Entorno de prueba</footer>
-  </body>
+  <div class="toast-region" id="toasts" aria-live="polite"></div>
+  <footer><div class="wrap"><span id="foot-name">Conecta Rural</span><span>¿Necesitas ayuda? <a id="foot-support" href="#">Escríbenos</a></span></div></footer>
+  <script src="/app.js"></script>
+</body>
 </html>
