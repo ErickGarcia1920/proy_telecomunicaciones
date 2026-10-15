@@ -158,7 +158,7 @@ test('los datos persisten en disco y se recuperan al reiniciar', async () => {
   a.accounts.set('U1', { username: 'U1', usedSeconds: 42 });
   a.counters.revenueGTQ = 60;
   a.flush();
-  assert.equal(fs.statSync(file).mode & 0o777, 0o600);
+  if (process.platform !== 'win32') assert.equal(fs.statSync(file).mode & 0o777, 0o600); // Windows no usa permisos POSIX
   const b = new Store({ file, persist: true });
   assert.equal(b.accounts.get('U1').usedSeconds, 42);
   assert.equal(b.counters.revenueGTQ, 60);

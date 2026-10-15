@@ -32,7 +32,7 @@ RADIUS_SECRET='un-secreto-largo-y-unico' \
 PORTAL_LOGIN_URL='https://10.10.20.1:8003/index.php?zone=prepago' \
 npm start
 
-npm test                              # 32 pruebas automáticas
+npm test                              # pruebas automáticas
 ```
 
 El panel de monitoreo está en `/estado`. Para desplegar en el servidor, usen `ops/portal.service` y `.env.example`. La configuración de pfSense está en [`docs/pfsense.md`](docs/pfsense.md).
